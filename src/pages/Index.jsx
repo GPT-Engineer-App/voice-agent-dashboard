@@ -1,5 +1,6 @@
-import { Box, Container, Flex, Heading, Link, Text, VStack } from "@chakra-ui/react";
+import { Box, Container, Flex, Heading, Link, Text, VStack, Menu, MenuButton, MenuList, MenuItem, Button, Spacer } from "@chakra-ui/react";
 import { NavLink, Route, Routes, BrowserRouter as Router } from "react-router-dom";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 
 const Home = () => (
   <Container centerContent maxW="container.md" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
@@ -42,21 +43,32 @@ const Index = () => {
     <Router>
       <Box bg="gray.100" w="100%" p={4} color="black">
         <Flex justify="space-between" align="center">
-          <Heading size="md">Property Management Dashboard</Heading>
-          <Flex>
-            <Link as={NavLink} to="/" p={2} mx={2}>Home</Link>
-            <Link as={NavLink} to="/maintenance-agents" p={2} mx={2}>Maintenance Agents</Link>
-            <Link as={NavLink} to="/outbound-agents" p={2} mx={2}>Outbound Agents</Link>
-            <Link as={NavLink} to="/settings" p={2} mx={2}>Settings</Link>
+          <Menu>
+            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+              Select Agent
+            </MenuButton>
+            <MenuList>
+              <MenuItem as={NavLink} to="/maintenance-agents">Maintenance Agent</MenuItem>
+              <MenuItem as={NavLink} to="/outbound-agents">Outbound Agent</MenuItem>
+            </MenuList>
+          </Menu>
+          <Flex justify="center" flex="1">
+            <Link as={NavLink} to="/agent" p={2} mx={2}>Agent</Link>
+            <Link as={NavLink} to="/call-logs" p={2} mx={2}>Call Logs</Link>
+            <Link as={NavLink} to="/integrations" p={2} mx={2}>Integrations</Link>
           </Flex>
+          <Spacer />
+          <Link as={NavLink} to="/settings" p={2} mx={2}>Account Settings</Link>
         </Flex>
       </Box>
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route path="/maintenance-agents" element={<MaintenanceAgents />} />
-        <Route path="/outbound-agents" element={<OutboundAgents />} />
-        <Route path="/settings" element={<Settings />} />
-      </Routes>
+      <Box mt={4}>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route path="/maintenance-agents" element={<MaintenanceAgents />} />
+          <Route path="/outbound-agents" element={<OutboundAgents />} />
+          <Route path="/settings" element={<Settings />} />
+        </Routes>
+      </Box>
     </Router>
   );
 };
