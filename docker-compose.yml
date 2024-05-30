@@ -1,0 +1,13 @@
+version: "2"
+services:
+  node:
+    image: "node:current"
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./:/home/node/app
+    ports:
+      - "8080:8080"
+    command: "sh run.sh"
